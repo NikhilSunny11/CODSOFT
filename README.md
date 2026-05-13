@@ -113,6 +113,4 @@ npm run dev
 
 The application will now be running on `http://localhost:5173` (or your default React port), communicating with the backend on `http://localhost:5000`.
 
----paste your terminal commands and run your app instantly.
-
 ```
