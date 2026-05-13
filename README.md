@@ -13,8 +13,8 @@
 This repository contains a fully responsive, full-stack Job Board application developed as Task 1 for the CODSOFT Web Development Internship. The platform bridges the gap between employers and job seekers, featuring secure authentication, seamless resume uploads, and automated email notifications.
 
 ### 🔗 Live Links
-* **Live Application:** ("https://codsoft-x4s0.onrender.com")
-* **Backend API URL:** ("https://codsoft-rho-nine.vercel.app")
+* **Live Application:** ("https://codsoft-rho-nine.vercel.app")
+* **Backend API URL:** ("https://codsoft-x4s0.onrender.com")
 
 ---
 
