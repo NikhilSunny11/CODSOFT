@@ -69,13 +69,13 @@ app.use(
           'data:',
           'blob:',
           'https://res.cloudinary.com',   // Cloudinary images (logos)
-          'http://localhost:5000',          // Local profile images
+          'https://codsoft-x4s0.onrender.com',          // Local profile images
           'http://localhost:5173',
           'http://localhost:5174',
         ],
         connectSrc: [
           "'self'",
-          'http://localhost:5000',
+          'https://codsoft-x4s0.onrender.com',
           'http://localhost:5173',
           'http://localhost:5174',
         ],
