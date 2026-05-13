@@ -70,13 +70,14 @@ app.use(
           'blob:',
           'https://res.cloudinary.com',   // Cloudinary images (logos)
           'https://codsoft-x4s0.onrender.com',          // Local profile images
-          'http://localhost:5173',
+          'https://codsoft-rho-nine.vercel.app/',
           'http://localhost:5174',
         ],
         connectSrc: [
           "'self'",
           'https://codsoft-x4s0.onrender.com',
-          'http://localhost:5173',
+          'https://codsoft-rho-nine.vercel.app/',
+          'https://codsoft-rho-nine.vercel.app/',
           'http://localhost:5174',
         ],
       },
@@ -87,7 +88,7 @@ app.use(
 app.use(
   cors({
     origin: [
-      process.env.CLIENT_URL || 'http://localhost:5173',
+      process.env.CLIENT_URL || 'https://codsoft-rho-nine.vercel.app/',
       'http://localhost:5174',
     ],
     credentials: true,
