@@ -76,7 +76,7 @@ app.use(
         connectSrc: [
           "'self'",
           'https://codsoft-x4s0.onrender.com',
-          'https://codsoft-rho-nine.vercel.app/',
+          '/https://codsoft-rho-nine.vercel.app',
           'https://codsoft-rho-nine.vercel.app/',
           'http://localhost:5174',
         ],

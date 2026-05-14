@@ -5,7 +5,7 @@
 ## 📋 Project Overview
 A full-stack, responsive web application built with the MERN stack. This platform connects employers and job seekers, allowing companies to post openings and candidates to seamlessly browse, search, and apply for jobs with resume uploads.
 
-🔗 **Live Demo:** [Insert your Vercel Link here]  
+🔗 **Live Demo:**(https://codsoft-rho-nine.vercel.app/) 
 🔗 **Backend API:**(https://codsoft-x4s0.onrender.com)  
 
 ---
