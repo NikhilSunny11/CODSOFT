@@ -82,11 +82,15 @@ app.use(
   })
 );
 
+const allowedOrigins = [
+  'https://codsoft-rho-nine.vercel.app',
+  'http://localhost:5173',
+];
+if (process.env.CLIENT_URL) allowedOrigins.push(process.env.CLIENT_URL);
+
 app.use(
   cors({
-    origin: [
-      process.env.CLIENT_URL || 'https://codsoft-rho-nine.vercel.app',
-    ],
+    origin: allowedOrigins,
     credentials: true,
   })
 );
