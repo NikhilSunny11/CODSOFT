@@ -82,7 +82,7 @@ const sendNewApplicationEmail = async ({ employerEmail, employerName, candidateN
             Log in to your <strong>Employer Dashboard</strong> to review the application and download the resume.
           </p>
           <div style="text-align: center; margin-top: 28px;">
-            <a href="${process.env.CLIENT_URL || 'https://codsoft-rho-nine.vercel.app/'}employer/dashboard"
+            <a href="${process.env.CLIENT_URL || 'https://codsoft-rho-nine.vercel.app'}employer/dashboard"
                style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-size: 16px; font-weight: 600; display: inline-block;">
               View Application →
             </a>
@@ -147,7 +147,7 @@ const sendStatusUpdateEmail = async ({ candidateEmail, candidateName, jobTitle, 
           </div>
           <p style="font-size: 16px; color: #334155;">${config.cta}</p>
           <div style="text-align: center; margin-top: 28px;">
-            <a href="${process.env.CLIENT_URL || 'https://codsoft-rho-nine.vercel.app/'}/candidate/dashboard"
+            <a href="${process.env.CLIENT_URL || 'https://codsoft-rho-nine.vercel.app'}/candidate/dashboard"
                style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-size: 16px; font-weight: 600; display: inline-block;">
               View My Applications →
             </a>
@@ -185,7 +185,7 @@ const sendWelcomeEmail = async ({ email, name, role }) => {
           </p>
           <p style="font-size: 16px; color: #334155;">${roleMessage}</p>
           <div style="text-align: center; margin-top: 28px;">
-            <a href="${process.env.CLIENT_URL || 'https://codsoft-rho-nine.vercel.app/'}"
+            <a href="${process.env.CLIENT_URL || 'https://codsoft-rho-nine.vercel.app'}"
                style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-size: 16px; font-weight: 600; display: inline-block;">
               Get Started →
             </a>

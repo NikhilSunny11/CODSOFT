@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { HiMail } from 'react-icons/hi';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
-import axios from 'axios';
+import api from '../services/api';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -14,7 +14,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post('/api/auth/forgot-password', { email });
+      const res = await api.post('/auth/forgot-password', { email });
       toast.success(res.data.message || 'Email sent successfully');
       setSent(true);
     } catch (err) {

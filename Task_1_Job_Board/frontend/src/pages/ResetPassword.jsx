@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { HiLockClosed, HiEye, HiEyeOff, HiArrowRight } from 'react-icons/hi';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
-import axios from 'axios';
+import api from '../services/api';
 
 const PasswordStrength = ({ password }) => {
   const getStrength = (pwd) => {
@@ -41,7 +41,7 @@ const ResetPassword = () => {
     if (password.length < 6) { toast.error('Password must be at least 6 characters'); return; }
     setLoading(true);
     try {
-      await axios.put(`/api/auth/reset-password/${token}`, { password });
+      await api.put(`/auth/reset-password/${token}`, { password });
       toast.success('Password reset successfully! Please log in.');
       navigate('/login');
     } catch (err) {

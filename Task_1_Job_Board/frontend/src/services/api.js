@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL || '/api',
   // NOTE: Do NOT set a default Content-Type here.
   // - For JSON requests, axios auto-sets 'application/json' when the body is an object.
   // - For FormData requests, axios auto-sets 'multipart/form-data; boundary=...'

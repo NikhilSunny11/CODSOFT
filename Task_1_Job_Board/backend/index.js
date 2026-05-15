@@ -69,16 +69,13 @@ app.use(
           'data:',
           'blob:',
           'https://res.cloudinary.com',   // Cloudinary images (logos)
-          'https://codsoft-x4s0.onrender.com',          // Local profile images
-          'https://codsoft-rho-nine.vercel.app/',
-          'http://localhost:5174',
+          'https://codsoft-x4s0.onrender.com',          // Backend profile images
+          'https://codsoft-rho-nine.vercel.app',
         ],
         connectSrc: [
           "'self'",
           'https://codsoft-x4s0.onrender.com',
-          '/https://codsoft-rho-nine.vercel.app',
-          'https://codsoft-rho-nine.vercel.app/',
-          'http://localhost:5174',
+          'https://codsoft-rho-nine.vercel.app',
         ],
       },
     },
@@ -88,8 +85,7 @@ app.use(
 app.use(
   cors({
     origin: [
-      process.env.CLIENT_URL || 'https://codsoft-rho-nine.vercel.app/',
-      'http://localhost:5174',
+      process.env.CLIENT_URL || 'https://codsoft-rho-nine.vercel.app',
     ],
     credentials: true,
   })
