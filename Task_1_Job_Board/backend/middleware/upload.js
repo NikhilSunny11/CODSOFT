@@ -1,30 +1,29 @@
 const multer = require('multer');
-const path = require('path');
 
-// Configure storage — save to uploads/ temporarily before cloud upload
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '..', 'uploads'));
-  },
-  filename: (req, file, cb) => {
-    // Create unique filename: userId-timestamp-originalname
-    const uniqueName = `${req.user._id}-${Date.now()}${path.extname(file.originalname)}`;
-    cb(null, uniqueName);
-  },
-});
+// Use memory storage — the file buffer is held in memory and
+// streamed directly to Cloudinary. This avoids needing a writable
+// local filesystem (important for Render / serverless deployments).
+const storage = multer.memoryStorage();
 
-// File filter — only allow PDF, DOC, DOCX
+// File filter — only allow PDF, DOC, DOCX for resumes
+// and JPG, PNG, WEBP for images (logos, profile pics)
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = [
+  const documentTypes = [
     'application/pdf',
     'application/msword',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   ];
+  const imageTypes = [
+    'image/jpeg',
+    'image/png',
+    'image/webp',
+  ];
+  const allowedTypes = [...documentTypes, ...imageTypes];
 
   if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error('Only PDF, DOC, and DOCX files are allowed'), false);
+    cb(new Error('Only PDF, DOC, DOCX, JPG, PNG, and WEBP files are allowed'), false);
   }
 };
 

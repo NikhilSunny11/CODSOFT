@@ -159,15 +159,39 @@ const uploadProfileImage = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Please upload an image file' });
     }
 
-    // Build the publicly-accessible URL for the uploaded file
-    const imageUrl = `/uploads/${req.file.filename}`;
+    // Upload buffer to Cloudinary via stream (memory storage)
+    const cloudinary = require('cloudinary').v2;
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
 
-    // Delete old profile image file if it exists
+    const result = await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        {
+          folder: 'jobboard/profile-images',
+          public_id: `profile_${req.user._id}_${Date.now()}`,
+          transformation: [{ width: 400, height: 400, crop: 'fill', gravity: 'face' }],
+        },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      );
+      stream.end(req.file.buffer);
+    });
+
+    const imageUrl = result.secure_url;
+
+    // Delete old Cloudinary image if it exists
     const oldUser = await User.findById(req.user._id);
-    if (oldUser.profileImage) {
-      const oldPath = path.join(__dirname, '..', oldUser.profileImage);
-      if (fs.existsSync(oldPath)) {
-        fs.unlinkSync(oldPath);
+    if (oldUser.profileImage && oldUser.profileImage.includes('cloudinary')) {
+      try {
+        const publicId = oldUser.profileImage.split('/').slice(-2).join('/').split('.')[0];
+        await cloudinary.uploader.destroy(publicId);
+      } catch (delErr) {
+        console.warn('Could not delete old profile image:', delErr.message);
       }
     }
 

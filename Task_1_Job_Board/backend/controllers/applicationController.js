@@ -1,4 +1,4 @@
-const fs = require('fs');
+
 const cloudinary = require('cloudinary').v2;
 const Application = require('../models/Application');
 const Job = require('../models/Job');
@@ -49,20 +49,28 @@ const createApplication = async (req, res) => {
     let resumeUrl = '';
     if (req.file) {
       try {
-        // Upload to Cloudinary
-        const result = await cloudinary.uploader.upload(req.file.path, {
-          folder: 'jobboard/resumes',
-          resource_type: 'raw',
-          public_id: `resume_${req.user._id}_${Date.now()}`,
+        // Upload buffer to Cloudinary via stream (memory storage — no local file)
+        const result = await new Promise((resolve, reject) => {
+          const stream = cloudinary.uploader.upload_stream(
+            {
+              folder: 'jobboard/resumes',
+              resource_type: 'raw',
+              public_id: `resume_${req.user._id}_${Date.now()}`,
+            },
+            (error, result) => {
+              if (error) reject(error);
+              else resolve(result);
+            }
+          );
+          stream.end(req.file.buffer);
         });
         resumeUrl = result.secure_url;
-
-        // Clean up local temp file
-        fs.unlinkSync(req.file.path);
       } catch (uploadError) {
-        // If Cloudinary fails, use local path as fallback
-        console.warn('Cloudinary upload failed, using local storage:', uploadError.message);
-        resumeUrl = `/uploads/${req.file.filename}`;
+        console.error('Cloudinary upload failed:', uploadError.message);
+        return res.status(500).json({
+          success: false,
+          message: 'Failed to upload resume. Please try again.',
+        });
       }
     } else {
       return res
@@ -101,10 +109,6 @@ const createApplication = async (req, res) => {
 
     res.status(201).json({ success: true, application });
   } catch (error) {
-    // Clean up uploaded file on error
-    if (req.file && fs.existsSync(req.file.path)) {
-      fs.unlinkSync(req.file.path);
-    }
     console.error('Create application error:', error);
     res.status(500).json({ success: false, message: 'Server error' });
   }
