@@ -1,16 +1,7 @@
 const multer = require('multer');
-const path = require('path');
 
-// Configure storage for profile images
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '..', 'uploads'));
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = `profile-${req.user._id}-${Date.now()}${path.extname(file.originalname)}`;
-    cb(null, uniqueName);
-  },
-});
+// Memory storage — buffer goes straight to Cloudinary, no temp files
+const storage = multer.memoryStorage();
 
 // File filter — only allow images
 const fileFilter = (req, file, cb) => {
